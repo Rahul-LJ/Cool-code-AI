@@ -1,0 +1,33 @@
+import tkinter as tk
+
+root = tk.Tk()
+root.title("Tkinter Animation")
+root.geometry("600x400")
+
+# Create a canvas
+canvas = tk.Canvas(root, bg="white")
+canvas.pack()
+
+# Create an oval shape
+oval = canvas.create_oval(10, 10, 50, 50, fill="red")
+
+# Initialize variables for animation direction
+x_dir = 1
+y_dir = 1
+
+# Define animation function
+def animate():
+    global x_dir, y_dir
+    canvas_width = canvas.winfo_width()
+    canvas_height = canvas.winfo_height()
+    x1, y1, x2, y2 = canvas.coords(oval)
+    if x2 > canvas_width or x1 < 0:
+        x_dir *= -1
+    if y2 > canvas_height or y1 < 0:
+        y_dir *= -1
+    canvas.move(oval, x_dir, y_dir)
+    root.after(50, animate)
+
+# Start animation
+root.after(50, animate)
+root.mainloop()
